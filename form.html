@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio Studio</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="form.css" />
+    <link rel="icon" href="assets/icons/favicon.png" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  </head>
+  <body>
+    <!-- Form Navigation -->
+    <div class="form-navigation" id="formNavigation">
+      <div class="nav-header">
+        <h3 class="nav-title">Progress</h3>
+        <button class="toggle-btn" onclick="toggleNavigation()">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+      </div>
+
+      <div class="nav-content">
+        <div class="progress-overview">
+          <div class="progress-text">Form Completion</div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <div class="progress-percentage" id="progressPercentage">0%</div>
+        </div>
+
+        <ul class="nav-sections">
+          <li class="nav-section">
+            <a
+              class="nav-link"
+              data-section="template"
+              onclick="scrollToSection('template')"
+            >
+              <i class="fas fa-palette nav-icon"></i>
+              <span class="nav-text">Template Selection</span>
+            </a>
+          </li>
+          <li class="nav-section">
+            <a
+              class="nav-link"
+              data-section="personal"
+              onclick="scrollToSection('personal')"
+            >
+              <i class="fas fa-user nav-icon"></i>
+              <span class="nav-text">Personal Info</span>
+            </a>
+          </li>
+          <li class="nav-section">
+            <a
+              class="nav-link"
+              data-section="contact"
+              onclick="scrollToSection('contact')"
+            >
+              <i class="fas fa-address-book nav-icon"></i>
+              <span class="nav-text">Contact Info</span>
+            </a>
+          </li>
+          <li class="nav-section">
+            <a
+              class="nav-link"
+              data-section="backend"
+              onclick="scrollToSection('backend')"
+            >
+              <i class="fas fa-server nav-icon"></i>
+              <span class="nav-text">Form Backend</span>
+            </a>
+          </li>
+          <li class="nav-section">
+            <a
+              class="nav-link"
+              data-section="social"
+              onclick="scrollToSection('social')"
+            >
+              <i class="fas fa-share-alt nav-icon"></i>
+              <span class="nav-text">Social Media</span>
+            </a>
+          </li>
+          <li class="nav-section">
+            <a
+              class="nav-link"
+              data-section="skills"
+              onclick="scrollToSection('skills')"
+            >
+              <i class="fas fa-cogs nav-icon"></i>
+              <span class="nav-text">Skills</span>
+            </a>
+          </li>
+          <li class="nav-section">
+            <a
+              class="nav-link"
+              data-section="projects"
+              onclick="scrollToSection('projects')"
+            >
+              <i class="fas fa-laptop-code nav-icon"></i>
+              <span class="nav-text">Projects</span>
+            </a>
+          </li>
+          <li class="nav-section">
+            <a
+              class="nav-link"
+              data-section="experience"
+              onclick="scrollToSection('experience')"
+            >
+              <i class="fas fa-briefcase nav-icon"></i>
+              <span class="nav-text">Experience</span>
+            </a>
+          </li>
+          <li class="nav-section">
+            <a
+              class="nav-link"
+              data-section="blog"
+              onclick="scrollToSection('blog')"
+            >
+              <i class="fas fa-blog nav-icon"></i>
+              <span class="nav-text">Blog Section</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Modal Overlay -->
+    <div id="modalOverlay" class="modal-overlay">
+      <div class="modal-content">
+        <div class="modal-header">
+          <i id="modalIcon" class="fas fa-info-circle"></i>
+          <h3 id="modalTitle">Information</h3>
+        </div>
+        <div class="modal-body">
+          <p id="modalMessage">Modal message content</p>
+        </div>
+        <div class="modal-actions">
+          <button
+            id="modalCancel"
+            class="btn btn-outline"
+            style="display: none"
+          >
+            Cancel
+          </button>
+          <button id="modalConfirm" class="btn btn-primary">OK</button>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <h1>Portfolio <span>Studio</span></h1>
+      <p class="subtitle">Create your stunning portfolio in minutes</p>
+
+      <form id="portfolioForm">
+        <!-- Template Selection -->
+        <div class="form-section">
+          <h2><i class="fas fa-palette"></i> Template Selection</h2>
+          <p style="margin-bottom: 1.5rem; color: var(--gray)">
+            Choose your preferred design theme
+          </p>
+          <div class="template-selection">
+            <div class="template-option" data-template="dark">
+              <strong>Dark Theme</strong>
+              <p>Modern dark interface with sleek aesthetics</p>
+            </div>
+            <div class="template-option selected" data-template="light">
+              <strong>Light Theme</strong>
+              <p>Clean light interface with professional look</p>
+            </div>
+          </div>
+          <input type="hidden" name="selectedTemplate" value="light" required />
+        </div>
+
+        <!-- Personal Information -->
+        <div class="form-section">
+          <h2><i class="fas fa-user"></i> Personal Information</h2>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fullName">Full Name</label>
+              <input
+                type="text"
+                id="fullName"
+                name="fullName"
+                required
+                placeholder="John Doe"
+              />
+            </div>
+            <div class="form-group">
+              <label for="title">Title/Tagline</label>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                required
+                placeholder="Software Developer"
+              />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="specialty">Specialty/Interest</label>
+              <input
+                type="text"
+                id="specialty"
+                name="specialty"
+                required
+                placeholder="Web Development"
+              />
+            </div>
+            <div class="form-group">
+              <label for="degree">Degree</label>
+              <input
+                type="text"
+                id="degree"
+                name="degree"
+                required
+                placeholder="Bachelor of Computer Science"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="university">University</label>
+            <input
+              type="text"
+              id="university"
+              name="university"
+              required
+              placeholder="University of Technology"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="aboutMe">About Me Section</label>
+            <textarea
+              id="aboutMe"
+              name="aboutMe"
+              required
+              placeholder="Write a brief introduction about yourself"
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="aboutImage">Profile Image (Optional)</label>
+            <input
+              type="file"
+              id="aboutImage"
+              name="aboutImage"
+              accept="image/*"
+              onchange="handleImageUpload(this, 'aboutImagePreview')"
+            />
+            <div id="aboutImagePreview" class="image-preview"></div>
+          </div>
+          <div class="form-group">
+            <label for="resumeFile">Upload Resume (PDF only)</label>
+            <input
+              type="file"
+              id="resumeFile"
+              name="resumeFile"
+              accept=".pdf,application/pdf"
+              onchange="handleFileUpload(this, 'resumeFilePreview')"
+              required
+            />
+            <div id="resumeFilePreview" class="file-preview"></div>
+          </div>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="form-section">
+          <h2><i class="fas fa-address-book"></i> Contact Information</h2>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                placeholder="john@example.com"
+              />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input
+                type="text"
+                id="phone"
+                name="phone"
+                required
+                placeholder="+1 (555) 123-4567"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="location">Location</label>
+            <input
+              type="text"
+              id="location"
+              name="location"
+              required
+              placeholder="New York, NY, USA"
+            />
+          </div>
+        </div>
+
+        <!-- Form Backend -->
+        <div class="form-section">
+          <h2><i class="fas fa-server"></i> Form Backend</h2>
+          <p style="margin-bottom: 1.5rem; color: var(--gray)">
+            Make your contact form functional.
+          </p>
+          <div class="form-group">
+            <label for="formBackend">Form Backend URL (Optional)</label>
+            <input
+              type="url"
+              id="formBackend"
+              name="formBackend"
+              placeholder="https://formspree.io/f/form_id"
+            />
+            <p
+              style="font-size: 0.8rem; color: var(--gray); margin-top: 0.5rem"
+            >
+              Provide a URL for a service like Formspree, Formcarry, or your own
+              custom backend to handle contact form submissions.
+            </p>
+          </div>
+        </div>
+
+        <!-- Social Media Links -->
+        <div class="form-section">
+          <h2><i class="fas fa-share-alt"></i> Social Media Links</h2>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="linkedinUrl">LinkedIn URL</label>
+              <input
+                type="url"
+                id="linkedinUrl"
+                name="linkedinUrl"
+                required
+                placeholder="https://linkedin.com/in/johndoe"
+              />
+            </div>
+            <div class="form-group">
+              <label for="githubUrl">GitHub URL</label>
+              <input
+                type="url"
+                id="githubUrl"
+                name="githubUrl"
+                required
+                placeholder="https://github.com/johndoe"
+              />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="twitterUrl">Twitter URL (Optional)</label>
+              <input
+                type="url"
+                id="twitterUrl"
+                name="twitterUrl"
+                placeholder="https://twitter.com/johndoe"
+              />
+            </div>
+            <div class="form-group">
+              <label for="instagramUrl">Instagram URL (Optional)</label>
+              <input
+                type="url"
+                id="instagramUrl"
+                name="instagramUrl"
+                placeholder="https://instagram.com/johndoe"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Skills Section -->
+        <div class="form-section">
+          <h2><i class="fas fa-cogs"></i> Skills</h2>
+          <div id="skillsContainer">
+            <div class="dynamic-section skill-item">
+              <h4><i class="fas fa-code"></i> Skill 1</h4>
+              <div class="form-group">
+                <label>Skill Name</label>
+                <input
+                  type="text"
+                  name="skillName[]"
+                  required
+                  placeholder="Python Programming"
+                />
+              </div>
+              <div class="form-group">
+                <label>Skill Description</label>
+                <textarea
+                  name="skillDesc[]"
+                  required
+                  placeholder="Describe your proficiency and experience with this skill"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-success" onclick="addSkill()">
+            <i class="fas fa-plus"></i> Add Another Skill
+          </button>
+        </div>
+
+        <!-- Projects Section -->
+        <div class="form-section">
+          <h2><i class="fas fa-laptop-code"></i> Projects</h2>
+          <div id="projectsContainer">
+            <div class="dynamic-section project-item">
+              <h4><i class="fas fa-project-diagram"></i> Project 1</h4>
+              <div class="form-group">
+                <label>Project Title</label>
+                <input
+                  type="text"
+                  name="projectTitle[]"
+                  required
+                  placeholder="Awesome Web Application"
+                />
+              </div>
+              <div class="form-group">
+                <label>Project Description</label>
+                <textarea
+                  name="projectDesc[]"
+                  required
+                  placeholder="Describe your project, its purpose, key features, and impact"
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <label>Project Image (Optional)</label>
+                <input
+                  type="file"
+                  name="projectImage[]"
+                  accept="image/*"
+                  onchange="handleImageUpload(this, 'projectImagePreview' + projectCount)"
+                />
+                <div id="projectImagePreview1" class="image-preview"></div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>GitHub URL (Optional)</label>
+                  <input
+                    type="url"
+                    name="projectGithubUrl[]"
+                    placeholder="https://github.com/johndoe/project"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Live Demo URL (Optional)</label>
+                  <input
+                    type="url"
+                    name="projectLiveUrl[]"
+                    placeholder="https://project-demo.com"
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Technologies Used</label>
+                <input
+                  type="text"
+                  name="projectTechs[]"
+                  required
+                  placeholder="React, Node.js, MongoDB, AWS"
+                />
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-success" onclick="addProject()">
+            <i class="fas fa-plus"></i> Add Another Project
+          </button>
+        </div>
+
+        <!-- Experience Section -->
+        <div class="form-section">
+          <h2><i class="fas fa-briefcase"></i> Experience</h2>
+          <div id="experienceContainer">
+            <div class="dynamic-section experience-item">
+              <h4><i class="fas fa-building"></i> Experience 1</h4>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Job Title</label>
+                  <input
+                    type="text"
+                    name="jobTitle[]"
+                    required
+                    placeholder="Software Developer"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Company</label>
+                  <input
+                    type="text"
+                    name="jobCompany[]"
+                    required
+                    placeholder="Tech Solutions Inc."
+                  />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Start Date</label>
+                  <input
+                    type="text"
+                    name="jobStartDate[]"
+                    required
+                    placeholder="Jan 2023"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>End Date</label>
+                  <input
+                    type="text"
+                    name="jobEndDate[]"
+                    required
+                    placeholder="Present"
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Job Description</label>
+                <textarea
+                  name="jobDesc[]"
+                  required
+                  placeholder="Describe your role, responsibilities, and key achievements"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+          <button
+            type="button"
+            class="btn btn-success"
+            onclick="addExperience()"
+          >
+            <i class="fas fa-plus"></i> Add Another Experience
+          </button>
+        </div>
+
+        <!-- Blog Section Toggle -->
+        <div class="form-section">
+          <div class="checkbox-group">
+            <div class="checkbox-wrapper">
+              <input
+                type="checkbox"
+                id="includeBlog"
+                name="includeBlog"
+                onchange="toggleBlogSection()"
+              />
+              <label for="includeBlog">Include Blog Section</label>
+            </div>
+          </div>
+
+          <div id="blogSection" class="blog-section">
+            <h3><i class="fas fa-blog"></i> Blog Posts</h3>
+            <div id="blogContainer">
+              <div class="dynamic-section blog-item">
+                <h4><i class="fas fa-pen-alt"></i> Blog Post 1</h4>
+                <div class="form-group">
+                  <label>Blog Title</label>
+                  <input
+                    type="text"
+                    name="blogTitle[]"
+                    placeholder="Understanding Artificial Intelligence"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Publication Date</label>
+                  <input
+                    type="text"
+                    name="blogDate[]"
+                    placeholder="March 15, 2024"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Blog Excerpt</label>
+                  <textarea
+                    name="blogExcerpt[]"
+                    placeholder="A brief summary of your blog post content"
+                  ></textarea>
+                </div>
+                <div class="form-group">
+                  <label>Blog URL</label>
+                  <input
+                    type="url"
+                    name="blogUrl[]"
+                    placeholder="https://myblog.com/post"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Blog Image (Optional)</label>
+                  <input
+                    type="file"
+                    name="blogImage[]"
+                    accept="image/*"
+                    onchange="handleImageUpload(this, 'blogImagePreview' + blogCount)"
+                  />
+                  <div id="blogImagePreview1" class="image-preview"></div>
+                </div>
+              </div>
+            </div>
+            <button type="button" class="btn btn-success" onclick="addBlog()">
+              <i class="fas fa-plus"></i> Add Another Blog Post
+            </button>
+          </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="form-actions">
+          <button type="button" class="btn btn-danger" onclick="clearForm()">
+            <i class="fas fa-trash-alt"></i> Clear Form
+          </button>
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-magic"></i> Generate Portfolio
+          </button>
+          <button
+            type="button"
+            class="btn btn-success"
+            onclick="downloadSourceCode()"
+          >
+            <i class="fas fa-download"></i> Download Source Code
+          </button>
+        </div>
+      </form>
+    </div>
+    <script src="form.js"></script>
+  </body>
+</html>
