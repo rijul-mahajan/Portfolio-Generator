@@ -34,9 +34,9 @@
 
 ```
 📁 PortfolioStudio/
-├── form.html        # Main UI for form inputs
-├── form.css         # Custom modern styles with themes and animations
-├── form.js          # Handles logic, validation, and dynamic rendering
+├── index.html        # Main UI for form inputs
+├── styles.css         # Custom modern styles with themes and animations
+├── script.js          # Handles logic, validation, and dynamic rendering
 └── README.md        # Project overview and usage instructions
 ```
 
